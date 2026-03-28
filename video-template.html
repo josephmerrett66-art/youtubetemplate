@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0b;
+    --bg2: #141412;
+    --bg3: #1a1a17;
+    --surface: #1f1f1b;
+    --surface2: #262622;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e6df;
+    --text2: #9a9891;
+    --text3: #5a5955;
+    --gold: #c9a84c;
+    --gold2: #e8c96a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --gold-glow: rgba(201,168,76,0.06);
+    --red-acc: #c4503a;
+    --red-dim: rgba(196,80,58,0.12);
+    --teal-acc: #4a9b8e;
+    --teal-dim: rgba(74,155,142,0.12);
+    --serif: 'Playfair Display', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── GRAIN OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    margin-bottom: 80px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .header-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-eyebrow::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .header h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .header-sub {
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--text3);
+    font-family: var(--mono);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── SECTION WRAPPERS ─── */
+  .section {
+    margin-bottom: 64px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 3px 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── INTENT CARD ─── */
+  .intent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .intent-field {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .intent-field:last-child { border-bottom: none; }
+
+  .intent-label {
+    padding: 18px 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    background: var(--bg2);
+  }
+
+  .intent-input {
+    padding: 18px 24px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    resize: none;
+    line-height: 1.6;
+    caret-color: var(--gold);
+  }
+
+  .intent-input::placeholder { color: var(--text3); font-style: italic; }
+  .intent-input:focus { background: var(--gold-glow); }
+
+  /* ─── SHOT GRID ─── */
+  .shot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .shot-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .shot-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .shot-cam-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+
+  .badge-main {
+    background: rgba(201,168,76,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.25);
+  }
+
+  .badge-bts {
+    background: var(--red-dim);
+    color: #e07060;
+    border: 1px solid rgba(196,80,58,0.3);
+  }
+
+  .shot-cam-name {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text2);
+    font-weight: 300;
+  }
+
+  .shot-items { padding: 8px 0; }
+
+  .shot-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .shot-item:hover { background: rgba(255,255,255,0.025); }
+
+  .shot-item.checked .shot-name { color: var(--text3); text-decoration: line-through; text-decoration-color: var(--text3); }
+
+  .shot-check {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border-radius: 2px;
+    border: 1px solid var(--border2);
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    background: var(--bg2);
+  }
+
+  .shot-item.checked .shot-check {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .check-tick {
+    display: none;
+    width: 8px;
+    height: 5px;
+    border-left: 1.5px solid var(--bg);
+    border-bottom: 1.5px solid var(--bg);
+    transform: rotate(-45deg) translateY(-1px);
+  }
+
+  .shot-item.checked .check-tick { display: block; }
+
+  .shot-name {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  .shot-sub {
+    font-size: 11px;
+    color: var(--text3);
+    font-style: italic;
+    margin-top: 1px;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline { position: relative; }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 100px 1px 1fr;
+    gap: 0 28px;
+    margin-bottom: 4px;
+  }
+
+  .tl-time {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    font-weight: 300;
+    padding-top: 14px;
+    text-align: right;
+    letter-spacing: 0.05em;
+  }
+
+  .tl-spine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tl-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 17px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tl-connector {
+    width: 1px;
+    flex: 1;
+    min-height: 32px;
+    background: var(--border);
+  }
+
+  .tl-content {
+    padding: 12px 0 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tl-item:last-child .tl-content { border-bottom: none; }
+
+  .tl-stage {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .tl-heading {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .tl-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .tl-rule {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .tl-rule::before {
+    content: '→';
+    color: var(--gold);
+  }
+
+  /* color dots */
+  .dot-hook { background: var(--gold); box-shadow: 0 0 8px rgba(201,168,76,0.4); }
+  .dot-context { background: var(--teal-acc); }
+  .dot-process { background: #7a6fb5; }
+  .dot-reflection { background: var(--red-acc); }
+
+  .stage-hook { color: var(--gold); }
+  .stage-context { color: var(--teal-acc); }
+  .stage-process { color: #9d92d4; }
+  .stage-reflection { color: #e07060; }
+
+  /* ─── STYLE SPLIT ─── */
+  .style-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .style-panel {
+    padding: 28px 28px 32px;
+  }
+
+  .style-panel.clean {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+  }
+
+  .style-panel.raw {
+    background: var(--bg2);
+  }
+
+  .style-cam {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .style-cam-clean { color: var(--gold); }
+  .style-cam-raw { color: #e07060; }
+
+  .style-cam::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .style-cam-clean::before { background: var(--gold); }
+  .style-cam-raw::before { background: #e07060; }
+
+  .style-word {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .clean .style-word { color: var(--text); }
+  .raw .style-word { color: var(--text2); font-style: italic; }
+
+  .style-rules { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .style-rules li {
+    font-size: 13px;
+    color: var(--text2);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .style-rules li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--text3);
+  }
+
+  .style-divider {
+    grid-column: 1 / -1;
+    padding: 12px 28px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  /* ─── REVIEW ─── */
+  .review-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .review-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+  }
+
+  .review-q {
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--text2);
+    border-right: 1px solid var(--border);
+    background: var(--bg2);
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .review-a {
+    padding: 14px 20px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    resize: none;
+    line-height: 1.6;
+    caret-color: var(--gold);
+    min-height: 54px;
+  }
+
+  .review-a::placeholder { color: var(--text3); }
+  .review-a:focus { background: var(--gold-glow); }
+
+  .review-note {
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .review-note::before {
+    content: '';
+    height: 1px;
+    width: 24px;
+    background: var(--text3);
+  }
+
+  /* ─── QUICK COPY ─── */
+  .qc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .qc-header {
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .qc-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+
+  .qc-copy-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 5px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .qc-copy-btn:hover { background: rgba(201,168,76,0.15); }
+
+  .qc-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .qc-col {
+    padding: 24px 24px 28px;
+    border-right: 1px solid var(--border);
+  }
+
+  .qc-col:last-child { border-right: none; }
+
+  .qc-col-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 14px;
+  }
+
+  .qc-field {
+    margin-bottom: 10px;
+  }
+
+  .qc-field-label {
+    font-size: 10px;
+    color: var(--text3);
+    font-family: var(--mono);
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .qc-field-val {
+    font-size: 12px;
+    color: var(--text2);
+    padding: 6px 10px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    min-height: 30px;
+  }
+
+  .qc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+
+  .qc-list li {
+    font-size: 12px;
+    color: var(--text2);
+    padding: 4px 10px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qc-list li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text3);
+    flex-shrink: 0;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-text {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-mark {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--text3);
+    font-style: italic;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .wrap { padding: 48px 20px 80px; }
+    .shot-grid { grid-template-columns: 1fr; }
+    .style-split { grid-template-columns: 1fr; }
+    .style-panel.clean { border-right: none; border-bottom: 1px solid var(--border); }
+    .review-item { grid-template-columns: 1fr; }
+    .review-q { border-right: none; border-bottom: 1px solid var(--border); }
+    .qc-body { grid-template-columns: 1fr; }
+    .qc-col { border-right: none; border-bottom: 1px solid var(--border); }
+    .intent-field { grid-template-columns: 1fr; }
+    .intent-label { border-right: none; border-bottom: 1px solid var(--border); padding: 12px 20px; }
+    .tl-item { grid-template-columns: 72px 1px 1fr; gap: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-eyebrow">Video Template</div>
+    <h1>Before you film,<br><em>before you edit.</em></h1>
+    <div class="header-sub">Fill in before each shoot — review after each post.</div>
+  </header>
+
+  <!-- 01 INTENT -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <div class="section-title">Video Intent</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="intent-card">
+      <div class="intent-field">
+        <div class="intent-label">Title idea</div>
+        <input class="intent-input" type="text" placeholder="e.g. I think I've been doing photography wrong" />
+      </div>
+      <div class="intent-field">
+        <div class="intent-label">Why it exists</div>
+        <textarea class="intent-input" rows="2" placeholder="e.g. I'm restarting and figuring it out publicly"></textarea>
+      </div>
+      <div class="intent-field">
+        <div class="intent-label">Feeling</div>
+        <input class="intent-input" type="text" placeholder="e.g. Honest, reflective, a bit raw" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 SHOTS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <div class="section-title">Shot Checklist</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="shot-grid">
+      <div class="shot-card">
+        <div class="shot-header">
+          <div class="shot-cam-badge badge-main">Main</div>
+          <div class="shot-cam-name">Canon 5D Mark II</div>
+        </div>
+        <div class="shot-items">
+          <div class="shot-item" onclick="toggle(this)">
+            <div class="shot-check"><div class="check-tick"></div></div>
+            <div>
+              <div class="shot-name">Talking head</div>
+              <div class="shot-sub">Honest, not scripted</div>
+            </div>
+          </div>
+          <div class="shot-item" onclick="toggle(this)">
+            <div class="shot-check"><div class="check-tick"></div></div>
+            <div>
+              <div class="shot-name">Cinematic b-roll</div>
+              <div class="shot-sub">Hands, camera, environment — slow and clean</div>
+            </div>
+          </div>
+          <div class="shot-item" onclick="toggle(this)">
+            <div class="shot-check"><div class="check-tick"></div></div>
+            <div>
+              <div class="shot-name">Outcome shot</div>
+              <div class="shot-sub">The result — even if it failed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <div class="shot-header">
+          <div class="shot-cam-badge badge-bts">BTS</div>
+          <div class="shot-cam-name">Konica Minolta DiMAGE Z6</div>
+        </div>
+        <div class="shot-items">
+          <div class="shot-item" onclick="toggle(this)">
+            <div class="shot-check"><div class="check-tick"></div></div>
+            <div>
+              <div class="shot-name">Setup</div>
+              <div class="shot-sub">Tripod, camera placement, getting ready</div>
+            </div>
+          </div>
+          <div class="shot-item" onclick="toggle(this)">
+            <div class="shot-check"><div class="check-tick"></div></div>
+            <div>
+              <div class="shot-name">Messy moments</div>
+              <div class="shot-sub">Mistakes, adjustments, "this isn't working"</div>
+            </div>
+          </div>
+          <div class="shot-item" onclick="toggle(this)">
+            <div class="shot-check"><div class="check-tick"></div></div>
+            <div>
+              <div class="shot-name">In-between life</div>
+              <div class="shot-sub">Walking, thinking, random clips</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 EDITING -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <div class="section-title">Editing Structure</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">0:00 – 0:10</div>
+        <div class="tl-spine">
+          <div class="tl-dot dot-hook"></div>
+          <div class="tl-connector"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-stage stage-hook">Hook</div>
+          <div class="tl-heading">Pull them in immediately.</div>
+          <div class="tl-desc">Fast cuts mixing 5D and Z6. No intro, no context yet — just texture and movement. Drop them into the moment.</div>
+          <div class="tl-rule">Clean shot → messy clip → voice line</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">0:10 – 0:30</div>
+        <div class="tl-spine">
+          <div class="tl-dot dot-context"></div>
+          <div class="tl-connector"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-stage stage-context">Context</div>
+          <div class="tl-heading">Talking head — what's happening.</div>
+          <div class="tl-desc">5D only. Stable frame. Say what the video is about. No fluff, no intro music, no "welcome back".</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">0:30 – 2:30</div>
+        <div class="tl-spine">
+          <div class="tl-dot dot-process"></div>
+          <div class="tl-connector"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-stage stage-process">Process</div>
+          <div class="tl-heading">The actual work, unpolished.</div>
+          <div class="tl-desc">Alternate cinematic 5D shots with raw Z6 clips. Let the contrast breathe. Every time the pace dulls, cut to Z6.</div>
+          <div class="tl-rule">Getting boring? Add a Z6 clip.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">2:30 → end</div>
+        <div class="tl-spine">
+          <div class="tl-dot dot-reflection"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-stage stage-reflection">Reflection</div>
+          <div class="tl-heading">Be honest about what happened.</div>
+          <div class="tl-desc">What worked, what didn't. This is the part people remember. No forced positivity, no call to action monologue.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 04 STYLE -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <div class="section-title">Style Rules</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="style-split">
+      <div class="style-panel clean">
+        <div class="style-cam style-cam-clean">5D Mark II</div>
+        <div class="style-word">Clean.<br>Still.<br>Cinematic.</div>
+        <ul class="style-rules">
+          <li>Sharp focus, stable frame</li>
+          <li>Deliberate composition every shot</li>
+          <li>Slow, intentional moves only</li>
+          <li>Never handheld unless chosen</li>
+        </ul>
+      </div>
+      <div class="style-panel raw">
+        <div class="style-cam style-cam-raw">Konica Minolta Z6</div>
+        <div class="style-word"><em>Raw.<br>Loose.<br>Alive.</em></div>
+        <ul class="style-rules">
+          <li>Handheld — imperfect is the point</li>
+          <li>Slight chaos is texture, not failure</li>
+          <li>Don't grade it to look like the 5D</li>
+          <li>It should feel like behind the scenes</li>
+        </ul>
+      </div>
+      <div class="style-divider">Never blur this line — the contrast between cameras is the visual language of the channel.</div>
+    </div>
+  </div>
+
+  <!-- 05 REVIEW -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <div class="section-title">Post-Video Review</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="review-grid">
+      <div class="review-item">
+        <div class="review-q">What part was boring?</div>
+        <textarea class="review-a" placeholder="Be specific — which section, which shot type..." rows="2"></textarea>
+      </div>
+      <div class="review-item">
+        <div class="review-q">Where did I lose energy?</div>
+        <textarea class="review-a" placeholder="Talking head pacing? Too long in process? Transitions?" rows="2"></textarea>
+      </div>
+      <div class="review-item">
+        <div class="review-q">What felt genuinely real?</div>
+        <textarea class="review-a" placeholder="The moments worth keeping as a model..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="review-note">Fix one thing next video — not everything.</div>
+  </div>
+
+  <!-- 06 QUICK COPY -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">06</div>
+      <div class="section-title">Quick Plan</div>
+      <div class="section-line"></div>
+    </div>
+    <div class="qc-card">
+      <div class="qc-header">
+        <div class="qc-title">At-a-glance reference</div>
+        <button class="qc-copy-btn" onclick="printPlan()">Print / Save PDF</button>
+      </div>
+      <div class="qc-body">
+        <div class="qc-col">
+          <div class="qc-col-title">Plan</div>
+          <div class="qc-field">
+            <div class="qc-field-label">Title</div>
+            <input type="text" class="qc-field-val" style="width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:12px;padding:6px 10px;border-radius:2px;outline:none;font-family:var(--sans);" placeholder="—" />
+          </div>
+          <div class="qc-field">
+            <div class="qc-field-label">Intent</div>
+            <input type="text" class="qc-field-val" style="width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:12px;padding:6px 10px;border-radius:2px;outline:none;font-family:var(--sans);" placeholder="—" />
+          </div>
+          <div class="qc-field">
+            <div class="qc-field-label">Feeling</div>
+            <input type="text" class="qc-field-val" style="width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:12px;padding:6px 10px;border-radius:2px;outline:none;font-family:var(--sans);" placeholder="—" />
+          </div>
+        </div>
+        <div class="qc-col">
+          <div class="qc-col-title">Shots</div>
+          <div style="margin-bottom:10px;font-size:10px;color:var(--gold);font-family:var(--mono);letter-spacing:0.1em;">5D</div>
+          <ul class="qc-list" style="margin-bottom:16px;">
+            <li>Talking head</li>
+            <li>Cinematic b-roll</li>
+            <li>Outcome shot</li>
+          </ul>
+          <div style="margin-bottom:10px;font-size:10px;color:#e07060;font-family:var(--mono);letter-spacing:0.1em;">Z6</div>
+          <ul class="qc-list">
+            <li>Setup</li>
+            <li>Messy moments</li>
+            <li>In-between life</li>
+          </ul>
+        </div>
+        <div class="qc-col">
+          <div class="qc-col-title">Structure</div>
+          <ul class="qc-list">
+            <li>0:00 Hook — no fluff</li>
+            <li>0:10 Context — talking head</li>
+            <li>0:30 Process — mix both cams</li>
+            <li>2:30 Reflection — honest</li>
+          </ul>
+          <div style="margin-top:20px;">
+            <div style="font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:8px;letter-spacing:0.08em;">One fix next video</div>
+            <input type="text" style="width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:12px;padding:6px 10px;border-radius:2px;outline:none;font-family:var(--sans);" placeholder="e.g. Tighten the hook" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-text">Video Template — v1.0</div>
+    <div class="footer-mark">Never blur the line.</div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('checked');
+  }
+
+  function printPlan() {
+    window.print();
+  }
+</script>
+
+<style media="print">
+  body { background: #fff; color: #111; }
+  :root {
+    --bg: #fff; --bg2: #f5f5f0; --bg3: #ebebeb;
+    --surface: #f9f9f6; --surface2: #f0f0eb;
+    --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.18);
+    --text: #111; --text2: #444; --text3: #888;
+    --gold: #9a7828; --gold-glow: rgba(154,120,40,0.04);
+    --red-acc: #9a3020; --teal-acc: #2a7068;
+  }
+  body::before { display: none; }
+  .qc-copy-btn { display: none; }
+</style>
+
+</body>
+</html>
